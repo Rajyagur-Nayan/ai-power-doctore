@@ -5,6 +5,8 @@ import Layout from "@/components/layout/Layout";
 import DoctorDashboard from "@/components/DoctorDashboard";
 import { Stethoscope, ShieldCheck, Activity, ShieldAlert, ChevronRight } from "lucide-react";
 
+import DoctorMeetingRequests from "@/components/DoctorMeetingRequests";
+
 export default function DoctorPortalPage() {
   return (
     <Layout>
@@ -41,8 +43,13 @@ export default function DoctorPortalPage() {
             </div>
         </div>
 
+        {/* Live Active Meeting Requests */}
+        <div className="px-4 md:px-8 mb-8">
+           <DoctorMeetingRequests doctorId="DOC_DEMO_999" />
+        </div>
+
         {/* Dashboard Core */}
-        <div className="medical-card p-2 md:p-6 lg:p-10 bg-white shadow-2xl rounded-[3rem] border-none overflow-hidden hover:shadow-primary-500/5 transition-all duration-700">
+        <div className="medical-card p-2 md:p-6 lg:p-10 bg-white shadow-2xl rounded-[3rem] border-none overflow-hidden hover:shadow-primary-500/5 transition-all duration-700 mx-4 md:mx-8">
            <DoctorDashboard />
         </div>
 

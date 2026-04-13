@@ -9,11 +9,14 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@livekit/components-react": "^2.9.20",
+    "@livekit/components-styles": "^1.2.0",
     "clsx": "^2.1.1",
     "google-tts-api": "^2.0.2",
     "groq-sdk": "^1.1.2",
     "leaflet": "^1.9.4",
     "leaflet-defaulticon-compatibility": "^0.1.2",
+    "livekit-client": "^2.18.1",
     "lucide-react": "^0.468.0",
     "next": "15.1.0",
     "react": "^19.0.0",

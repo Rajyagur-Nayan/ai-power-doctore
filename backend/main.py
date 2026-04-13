@@ -28,6 +28,7 @@ from database import engine, Base, get_db
 from models import Profile, MedicalHistory, Consultation, Prescription
 from routes.voice import router as voice_router
 from routes.healthcare import router as healthcare_router
+from routes.meeting import router as meeting_router
 
 app = FastAPI(title="Rural Health Assistant API")
 
@@ -42,6 +43,7 @@ app.add_middleware(
 
 app.include_router(voice_router)
 app.include_router(healthcare_router)
+app.include_router(meeting_router, prefix="/meeting", tags=["Meeting"])
 
 # Initialize AI Clients
 GROQ_API_KEY = os.getenv("GROQ_API_KEY")
@@ -78,7 +80,7 @@ RULES:
 2. STRICTLY NO MEDICAL DIAGNOSIS. Instead, use 'This could be...' or 'Commonly these symptoms mean...'
 3. If EMERGENCY (chest pain, heavy bleeding, accident), tell them to go to the HOSPITAL IMMEDIATELY in bold.
 4. For minor issues, suggest home care (hydration, rest) and visiting a local doctor.
-5. Keep it structured and easy to read on mobile."""
+5. Keep the response VERY SHORT, concise, and strictly in POINT-WISE format (bullet points)."""
 
 VOICE_CHAT_PROMPT = """You are a concise voice assistant. Use simple Hindi/Hinglish. 
 RULES: 

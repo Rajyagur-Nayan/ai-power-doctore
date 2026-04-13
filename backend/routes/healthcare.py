@@ -6,7 +6,6 @@ import os
 # Import agents
 from agents.nlp_agent import NLPAgent
 from agents.coding_agent import CodingAgent
-from agents.rule_engine.py as rule_engine_mod # Wait, I can't import .py file directly like that
 from agents.rule_engine import RuleEngine
 from agents.claims_agent import ClaimsAgent
 from agents.audit_logger import audit_logger
