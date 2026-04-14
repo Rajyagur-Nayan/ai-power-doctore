@@ -9,3 +9,5 @@ greenlet
 python-multipart
 Pillow
 edge-tts
+google-generativeai
+livekit-api
