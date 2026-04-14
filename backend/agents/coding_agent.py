@@ -3,7 +3,7 @@ class CodingAgent:
         pass
 
     def map_diagnoses(self, entities):
-        return [{"code": "R50.9", "description": "Fever, unspecified (mocked)"}]
+        return []
 
     def map_procedures(self, entities):
-        return [{"code": "99213", "description": "Outpatient visit (mocked)"}]
+        return []

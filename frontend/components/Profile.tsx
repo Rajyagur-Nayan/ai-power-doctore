@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from 'react';
-import { User, Weight, Calendar, Activity, Save, Loader2, CheckCircle, ShieldCheck, HeartPulse, ChevronRight } from 'lucide-react';
+import { User, Weight, Calendar, Activity, Save, Loader2, CheckCircle, HeartPulse, ChevronRight } from 'lucide-react';
 import { Card } from '@/components/ui/Card';
 import { Input } from '@/components/ui/Input';
 import { Button } from '@/components/ui/Button';

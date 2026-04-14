@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from 'react';
-import { WifiOff, AlertTriangle, RefreshCw, ShieldAlert, Wifi } from 'lucide-react';
+import { WifiOff, RefreshCw, ShieldAlert, Wifi } from 'lucide-react';
 import { useOnlineStatus } from '@/hooks/useOnlineStatus';
 import { syncManager } from '@/utils/syncManager';
 import { apiService } from '@/utils/api';

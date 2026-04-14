@@ -45,7 +45,7 @@ export default function DoctorPortalPage() {
 
         {/* Live Active Meeting Requests */}
         <div className="px-4 md:px-8 mb-8">
-           <DoctorMeetingRequests doctorId="DOC_DEMO_999" />
+           <DoctorMeetingRequests doctorId="doctor_01" />
         </div>
 
         {/* Dashboard Core */}

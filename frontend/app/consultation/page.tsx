@@ -49,8 +49,8 @@ export default function ConsultationPage() {
         {/* Video Request Application */}
         <div className="px-4 md:px-8 max-w-3xl">
           <PatientMeetingRequest
-            patientId="PAT_DEMO_123"
-            doctorId="DOC_DEMO_999"
+            patientId="patient_01"
+            doctorId="doctor_01"
           />
         </div>
       </div>

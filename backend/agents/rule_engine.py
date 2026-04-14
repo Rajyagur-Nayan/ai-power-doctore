@@ -4,6 +4,6 @@ class RuleEngine:
 
     def evaluate_prior_auth(self, icd10_codes, cpt_codes):
         return {
-            "status": "Approved",
-            "reasons": ["Standard procedure (mocked)"]
+            "status": "Pending",
+            "reasons": []
         }

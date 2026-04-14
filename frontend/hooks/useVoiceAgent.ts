@@ -34,7 +34,11 @@ export const useVoiceAgent = () => {
         const audio = new Audio(`data:audio/mp3;base64,${audioBase64}`);
         activeAudioRef.current = audio;
         audio.onended = () => setIsSpeaking(false);
-        await audio.play();
+        try {
+          await audio.play();
+        } catch (playErr) {
+          console.warn("Autoplay prevented. User interaction required:", playErr);
+        }
       } else {
          setIsSpeaking(false);
       }
@@ -104,7 +108,11 @@ export const useVoiceAgent = () => {
         const audio = new Audio(audioData);
         activeAudioRef.current = audio;
         audio.onended = () => setIsSpeaking(false);
-        await audio.play();
+        try {
+          await audio.play();
+        } catch (playErr) {
+          console.warn("Audio play failed:", playErr);
+        }
       }
     } catch (err) {
       setError(err instanceof Error ? err.message : "Vocal link failure");

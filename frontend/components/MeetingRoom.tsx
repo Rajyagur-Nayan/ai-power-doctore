@@ -10,7 +10,6 @@ import { useCallback, useRef } from "react";
 
 export default function MeetingRoom({
   token,
-  roomName,
   onLeave,
 }: {
   token: string;

@@ -1,83 +1,99 @@
-# Rural AI Health Dashboard
+# AI-Powered Rural Health Assistant
 
-A modern, responsive healthcare platform migrated to **Next.js 15** and **FastAPI**, designed for rural accessibility with multi-modal AI interaction.
+A comprehensive full-stack telemedicine platform designed for rural settings. It leverages cutting-edge AI (Groq + Llama 3, Gemini Flash) and reliable low-bandwidth WebRTC (LiveKit) to connect patients with medical resources and doctors seamlessly.
 
-## ✨ Updates & Current Functionality
+## 🚀 Features
+- **Smart Hospital Locator**: Real-time Leaflet map integration to discover nearby clinical nodes and request OSRM routing.
+- **Voice Health Assistant**: Speak naturally in Hindi/Hinglish. The app uses Groq Whisper for transcription, Llama 3 for intelligent triage, and Edge-TTS for audio response.
+- **AI Medical Image Analysis**: Securely upload biological images (rashes, wounds) for preliminary analysis using Gemini 2.5 Flash vision models.
+- **Telehealth Video Consultations**: Real-time, low-latency video calls powered by **LiveKit** WebRTC. Includes optimized low-bandwidth fallback mechanisms.
+- **Healthcare Ops Dashboard**: Clinical AI agents simulating rule-based claim adjudication prior authorizations.
+- **Doctor Portal**: Physicians can view incoming meeting requests in real-time, accept live consultations, and access patient medical logs.
 
-The platform has recently been overhauled to feature a **premium, minimal medical design** utilizing a soft-green color palette (`#22c55e`), card-based layouts, and clean typographic micro-interactions, ensuring high readability and a calming user experience.
+## 🛠️ Tech Stack
 
-- **AI Healthcare Assistant**: Real-time minimal chat interface powered by Groq LLaMA 3 70B, providing advice in Hindi/Hinglish.
-- **Neural Voice Input**: Specialized accessibility component featuring a glowing, animated circular microphone for low-literacy users.
-- **Offline Protocol**: Local message queuing that automatically syncs when internet connectivity is restored, featuring clean status indicators.
-- **Emergency Detection**: Scans symptoms for life-threatening conditions and provides immediate medical alerts.
-- **Doctor Directory**: Minimal profile cards for healthcare professionals with integrated call/book actions (Pill buttons).
-- **Clinical Hub (Doctor Dashboard)**: A clean, high-density dashboard for doctors to manage localized queues, execute secure bio-registry syncs, and issue digital prescriptions.
-- **Consultation History**: Chronological log of past AI interactions styled uniformly for tracking health progress.
-- **Nearby Clinics Map**: Interactive Leaflet map integrated natively into Next.js.
-- **Design System**: A fully standardized UI (Cards, Rounded Full Buttons, Soft Shadows) utilizing Tailwind CSS.
+### Frontend
+- **Framework**: Next.js 15 (React 19)
+- **Styling**: Tailwind CSS
+- **Maps**: React Leaflet
+- **WebRTC**: LiveKit Components React
 
-## 📁 Project Structure
+### Backend
+- **Framework**: FastAPI (Python)
+- **Database**: PostgreSQL (via SQLAlchemy + asyncpg)
+- **AI Integration**: Groq (Llama-3-70b-versatile, Whisper-large-v3), Google Gemini (2.5-flash)
+- **Voice Output**: Edge-TTS
 
-```bash
-.
-├── frontend/             # Next.js 15 App Router Project
-│   ├── app/              # Routes: Dashboard, Chat, Doctors, History, Hospitals
-│   ├── components/       # Soft-Green UI Library (Card, Button, Layouts, ChatUI)
-│   ├── hooks/            # Custom React Hooks (Online status, Voice Agent)
-│   ├── utils/            # Local Storage Sync & API Services
-│   └── public/           # Static Assets
-└── backend/              # FastAPI Application
-    ├── main.py           # Core Application Logic
-    ├── database.py       # DB Connection Management
-    ├── models.py         # Data Structures
-    ├── routes/           # Separated API routers (Voice, Groq Llama)
-    └── .env              # Environment Variables
+---
+
+## ⚙️ Environment Variables
+
+### Backend (`backend/.env`)
+```ini
+# PostgreSQL Database URL
+DATABASE_URL="postgresql://user:password@host/dbname"
+
+# AI Inference Keys
+GROQ_API_KEY="gsk_..."
+GEMINI_API_KEY="AIza..."
+
+# LiveKit Server Keys (For backend token generation)
+LIVEKIT_API_KEY="your_api_key"
+LIVEKIT_API_SECRET="your_api_secret"
+LIVEKIT_URL="wss://your-project.livekit.cloud"
 ```
 
-## 🚀 Getting Started
+### Frontend (`frontend/.env`)
+```ini
+# LiveKit Server URL (For frontend WebSocket connection)
+NEXT_PUBLIC_LIVEKIT_URL="wss://your-project.livekit.cloud"
+```
 
-### Prerequisites
+---
 
-- Node.js 18+
-- Python 3.9+
-- Groq API Key
+## 🏗️ Setup & Installation
 
-### Backend Setup
-
-1. Navigate to the backend folder:
+### 1. Backend Setup
+1. Open terminal and navigate to the backend directory:
    ```bash
    cd backend
    ```
-2. Create and configure `.env`:
+2. Install Python dependencies:
    ```bash
-   GROQ_API_KEY=your_api_key_here
+   pip install -r requirements.txt
    ```
-3. Run the server:
+3. Set your `.env` file credentials.
+4. Run the FastAPI development server:
    ```bash
    uvicorn main:app --reload --port 8000
    ```
 
-### Frontend Setup
-
-1. Navigate to the frontend folder:
+### 2. Frontend Setup
+1. Open a new terminal and navigate to the frontend directory:
    ```bash
    cd frontend
    ```
-2. Install dependencies:
+2. Install Node dependencies:
    ```bash
    npm install
    ```
-3. Run the development server:
+3. Run the Next.js development server:
    ```bash
    npm run dev
    ```
+4. Access the portal at `http://localhost:3000`.
 
-Open [http://localhost:3000](http://localhost:3000) to view the modernized dashboard.
+---
 
-## 🛠️ Tech Stack
+## 📡 Core API Endpoints
 
-- **Frontend**: Next.js 15, Tailwind CSS, Lucide React, React Leaflet, TypeScript.
-- **Backend**: FastAPI, Groq SDK.
-- **Database**: PostgreSQL / SQLAlchemy.
-- **Storage**: Browser LocalStorage (for offline data).
-- **AI Model**: LLaMA 3 70B (via Groq).
+- `POST /chat`: Text-based AI advisory chat.
+- `POST /voice`: Audio input endpoint for Whisper transcription and TTS response.
+- `POST /analyze-image`: Multimodal vision endpoint for analyzing physical symptoms.
+- `GET /meeting/requests`: Fetch active patient video consultation requests.
+- `POST /meeting/request`: Request a real-time WebRTC session.
+- `POST /healthcare/process-case`: Agentic operations pipeline.
+- `GET /history`: Fetch clinical interaction timeline logs.
+
+## 📹 LiveKit Integration Notes
+This application requires an active LiveKit server (either self-hosted or via LiveKit Cloud) to handle WebRTC routing securely. When a patient requests a meeting, the FastAPI backend uses the LiveKit Python client to generate secure access tokens for both the patient and the doctor. Ensure that your `NEXT_PUBLIC_LIVEKIT_URL` points exactly to the WebSocket address matching your Backend generation keys.

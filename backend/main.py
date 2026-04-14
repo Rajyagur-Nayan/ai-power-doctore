@@ -61,48 +61,39 @@ async def startup():
     async with engine.begin() as conn:
         await conn.run_sync(Base.metadata.create_all)
     
-    # Add initial mock patients for Doctor Dashboard if queue is empty
-    async with AsyncSession(engine) as db:
-        result = await db.execute(select(Consultation).limit(1))
-        if not result.scalars().first():
-            db.add_all([
-                Consultation(patient_name="Amit Sharma", symptoms="Severe Fever & Body Ache", status="Pending", earnings=500.0),
-                Consultation(patient_name="Priya Patel", symptoms="Skin Rash & Itching", status="Pending", earnings=450.0),
-                Consultation(patient_name="Rajesh Kumar", symptoms="Chronic Back Pain", status="Pending", earnings=600.0)
-            ])
-            await db.commit()
+    # Placeholder for startup routines
 
 # --- AI PROMPTS ---
 
-TEXT_CHAT_PROMPT = """You are a senior rural healthcare assistant. Provide professional, empathetic guidance in Hindi/Hinglish.
+TEXT_CHAT_PROMPT = """You are a senior rural healthcare assistant. Provide professional, empathetic guidance strictly in Hindi (Devanagari script).
 RULES:
 1. Provide clear, supportive advice for symptoms.
 2. STRICTLY NO MEDICAL DIAGNOSIS. Instead, use 'This could be...' or 'Commonly these symptoms mean...'
-3. If EMERGENCY (chest pain, heavy bleeding, accident), tell them to go to the HOSPITAL IMMEDIATELY in bold.
+3. If EMERGENCY (chest pain, heavy bleeding, accident), tell them to go to the HOSPITAL IMMEDIATELY in bold Hindi.
 4. For minor issues, suggest home care (hydration, rest) and visiting a local doctor.
-5. Keep the response VERY SHORT, concise, and strictly in POINT-WISE format (bullet points)."""
+5. Keep the response VERY SHORT, concise, and strictly in POINT-WISE format (bullet points) in Hindi."""
 
-VOICE_CHAT_PROMPT = """You are a concise voice assistant. Use simple Hindi/Hinglish. 
+VOICE_CHAT_PROMPT = """You are a concise voice assistant. Use simple, clear Hindi (Devanagari script). 
 RULES: 
-1. Maximum 1 short sentence. 
+1. Maximum 1 short sentence in Hindi. 
 2. Be direct and clear for audio playback. 
-3. If emergency, say ONLY 'Plesae go to the hospital immediately.'"""
+3. If emergency, say ONLY 'कृपया तुरंत अस्पताल जाएं।' (Please go to the hospital immediately in Hindi)."""
 
-MEDIC_PROMPT = """You are a safe medical advisor for Over-The-Counter (OTC) medication. 
+MEDIC_PROMPT = """You are a safe medical advisor for Over-The-Counter (OTC) medication. Provide all advice strictly in Hindi (Devanagari script).
 RULES:
 1. ONLY suggest basic OTC medicines (e.g., Paracetamol for fever, Cetirizine for allergies, ORS for dehydration).
 2. NEVER suggest prescription-only antibiotics, steroids, or heavy sedatives.
-3. ALWAYS include a clear safety warning: 'Consult a local doctor or pharmacist before taking any medicine.'
-4. If symptoms sound severe, DO NOT suggest medicine; instead, recommend immediate clinical consultation.
-5. Provide simple dosage for adults only (e.g., 'One tablet of Paracetamol 500mg up to 3 times a day')."""
+3. ALWAYS include a clear safety warning in Hindi: 'किसी भी दवा को लेने से पहले स्थानीय डॉक्टर या फार्मासिस्ट से सलाह लें।'
+4. If symptoms sound severe, DO NOT suggest medicine; instead, recommend immediate clinical consultation in Hindi.
+5. Provide simple dosage for adults only in Hindi."""
 
-VISION_PROMPT = """You are a specialized AI Vision assistant for biological image analysis (skin conditions, rashes, or wounds).
+VISION_PROMPT = """You are a specialized AI Vision assistant for biological image analysis (skin conditions, rashes, or wounds). Provide all analysis and advice strictly in Hindi (Devanagari script).
 RULES:
-1. Describe exactly what you see in the image (redness, swelling, texture, etc.).
-2. Suggest possible conditions (e.g., 'This looks similar to a fungal infection' or 'This could be an allergic reaction').
-3. Provide immediate first-aid or care advice (e.g., 'Keep the area clean', 'Do not scratch').
-4. MANDATORY: You MUST include this bold warning: '**DISCLAIMER: This is an AI-generated analysis and NOT a clinical diagnosis. Please consult a licensed medical professional immediately.**'
-5. If the wound looks severe (heavy bleeding, deep cut), urge them to seek emergency care immediately."""
+1. Describe exactly what you see in the image in Hindi.
+2. Suggest possible conditions in Hindi.
+3. Provide immediate first-aid or care advice in Hindi.
+4. MANDATORY: You MUST include this bold warning in Hindi: '**अस्वीकरण: यह एक एआई-जनरेटेड विश्लेषण है और नैदानिक ​​​​निदान नहीं है। कृपया तुरंत एक लाइसेंस प्राप्त चिकित्सा पेशेवर से परामर्श लें।**'
+5. If the wound looks severe, urge them to seek emergency care immediately in Hindi."""
 
 # --- PYDANTIC SCHEMAS ---
 

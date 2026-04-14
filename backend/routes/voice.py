@@ -67,7 +67,7 @@ async def voice_assistant(file: UploadFile = File(...)):
         if len(audio_bytes) < 1000:
             raise HTTPException(
                 status_code=400, 
-                detail="Recording too short! We didn't catch any audio. Please hold the mic and speak clearly for at least a second."
+                detail="रिकॉर्डिंग बहुत छोटी है! हमने कोई ऑडियो नहीं पकड़ा। कृपया माइक को पकड़ें और कम से कम एक सेकंड के लिए स्पष्ट रूप से बोलें।"
             )
 
         import io

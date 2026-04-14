@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Mic, Square, Loader2, Send, Activity, Volume2, AlertCircle } from "lucide-react";
 import { useVoiceAgent } from "@/hooks/useVoiceAgent";
 import { Button } from "@/components/ui/Button";
@@ -19,14 +19,13 @@ const VoiceAssistant: React.FC = () => {
     sendAudioQuery,
   } = useVoiceAgent();
 
+  const [isStarted, setIsStarted] = useState(false);
   const isInitialMount = useRef(true);
 
-  useEffect(() => {
-    if (isInitialMount.current) {
-      isInitialMount.current = false;
-      playGreeting();
-    }
-  }, [playGreeting]);
+  const handleStart = () => {
+    setIsStarted(true);
+    playGreeting();
+  };
 
   return (
     <div className="w-full max-w-6xl mx-auto min-h-[600px] flex flex-col lg:flex-row gap-6 p-6">
@@ -40,7 +39,7 @@ const VoiceAssistant: React.FC = () => {
           <div className="flex items-center justify-center gap-2 mb-8">
             <Activity className={`w-5 h-5 ${isSpeaking ? "text-medical-green animate-pulse" : "text-primary-400"}`} />
             <span className="text-sm font-semibold uppercase tracking-[0.2em] text-primary-400">
-              Neural Assistant
+              एआई असिस्टेंट
             </span>
           </div>
 
@@ -78,16 +77,16 @@ const VoiceAssistant: React.FC = () => {
           {/* AI Status Text */}
           <h3 className="text-2xl font-semibold  tracking-tight text-primary-900 uppercase">
             {isSpeaking
-              ? "Transmitting..."
+              ? "प्रसारित हो रहा है..."
               : isProcessing
-                ? "Analyzing Matrix..."
-                : "Awaiting Input"}
+                ? "विश्लेषण हो रहा है..."
+                : "इनपुट की प्रतीक्षा है"}
           </h3>
 
           {/* AI Response Text Box */}
           <div className="w-full mt-6 p-6 bg-primary-50/50 rounded-[1.5rem] border border-primary-100/50 min-h-[120px] flex items-center justify-center relative">
             <p className={`text-base font-bold  text-primary-900 leading-relaxed ${isSpeaking || transcribedText ? "opacity-100" : "opacity-40"}`}>
-              {transcribedText ? transcribedText : "The AI's response will appear here."}
+              {transcribedText ? transcribedText : "एआई की प्रतिक्रिया यहां दिखाई देगी।"}
             </p>
           </div>
         </div>
@@ -96,9 +95,9 @@ const VoiceAssistant: React.FC = () => {
       {/* User Action Panel (Right) */}
       <div className="flex-1 bg-white/50 backdrop-blur-xl rounded-2xl border border-primary-100 shadow-lg p-8 flex flex-col justify-center relative overflow-hidden">
         <div className="text-center space-y-2 mb-10 z-10">
-          <h2 className="text-3xl font-semibold tracking-tight text-primary-900">Your Turn</h2>
+          <h2 className="text-3xl font-semibold tracking-tight text-primary-900">आपकी बारी</h2>
           <p className="text-sm font-bold text-medical-textSecondary max-w-sm mx-auto">
-            Press record, state your symptoms clearly, stop the recording, and send the query to the AI.
+            रिकॉर्ड बटन दबाएं, अपने लक्षण स्पष्ट रूप से बताएं, और एआई को प्रश्न भेजें।
           </p>
         </div>
 
@@ -120,7 +119,7 @@ const VoiceAssistant: React.FC = () => {
               >
                 <div className="flex flex-col items-center gap-2 text-white">
                   <Square className="w-10 h-10 fill-current" />
-                  <span className="text-sm uppercase tracking-widest leading-none">Stop</span>
+                  <span className="text-sm uppercase tracking-widest leading-none">बंद करें</span>
                 </div>
               </Button>
             ) : (
@@ -133,7 +132,7 @@ const VoiceAssistant: React.FC = () => {
               >
                 <div className="flex flex-col items-center gap-2 text-white">
                   <Mic className="w-10 h-10" />
-                  <span className="text-sm uppercase tracking-widest leading-none">Record</span>
+                  <span className="text-sm uppercase tracking-widest leading-none">रिकॉर्ड</span>
                 </div>
               </Button>
             )}
@@ -151,12 +150,12 @@ const VoiceAssistant: React.FC = () => {
               {isProcessing ? (
                 <>
                   <Loader2 className="w-6 h-6 animate-spin" />
-                  <span>Sending...</span>
+                  <span>भेज रहा है...</span>
                 </>
               ) : (
                 <>
                   <Send className="w-6 h-6 group-hover:translate-x-1 transition-transform" />
-                  <span>Send Query</span>
+                  <span>प्रश्न भेजें</span>
                 </>
               )}
             </Button>
@@ -171,6 +170,24 @@ const VoiceAssistant: React.FC = () => {
             <p className="text-sm font-semibold uppercase tracking-tight leading-snug">
               {error}
             </p>
+          </div>
+        )}
+
+        {/* Start Overlay */}
+        {!isStarted && (
+          <div className="absolute inset-0 z-50 bg-white/80 backdrop-blur-md flex flex-col items-center justify-center p-8 text-center animate-in fade-in duration-500">
+            <Volume2 className="w-16 h-16 text-primary-500 mb-6 animate-bounce" />
+            <h3 className="text-2xl font-bold text-primary-900 mb-2">एआई असिस्टेंट शुरू करें</h3>
+            <p className="text-sm text-primary-600 mb-8 max-w-xs">
+              बेहतर अनुभव के लिए कृपया 'शुरू करें' बटन दबाएं।
+            </p>
+            <Button
+              size="lg"
+              onClick={handleStart}
+              className="px-12 py-6 rounded-full text-lg font-bold shadow-xl shadow-primary-500/20"
+            >
+              शुरू करें
+            </Button>
           </div>
         )}
       </div>
