@@ -22,7 +22,7 @@ export default function PatientMeetingRequest({
   const requestMeeting = async () => {
     try {
       setStatus("pending");
-      const res = await fetch("http://localhost:8000/meeting/request", {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:8000"}/meeting/request`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ patient_id: patientId, doctor_id: doctorId }),
@@ -41,7 +41,7 @@ export default function PatientMeetingRequest({
     const interval = setInterval(async () => {
       try {
         const res = await fetch(
-          `http://localhost:8000/meeting/status/${requestId}`,
+          `${process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:8000"}/meeting/status/${requestId}`,
         );
         if (!res.ok) return;
 

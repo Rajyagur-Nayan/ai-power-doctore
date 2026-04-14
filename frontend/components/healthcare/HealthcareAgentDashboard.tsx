@@ -15,7 +15,7 @@ export default function HealthcareAgentDashboard() {
     setIsLoading(true);
     setError(null);
     try {
-      const response = await fetch("http://localhost:8000/healthcare/process-case", {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:8000"}/healthcare/process-case`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ notes }),

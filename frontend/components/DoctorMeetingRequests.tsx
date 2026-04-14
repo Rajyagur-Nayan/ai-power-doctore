@@ -17,7 +17,7 @@ export default function DoctorMeetingRequests({ doctorId }: { doctorId: string }
 
   const fetchRequests = async () => {
     try {
-      const res = await fetch("http://localhost:8000/meeting/requests");
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:8000"}/meeting/requests`);
       if (!res.ok) return;
       const data = await res.json();
       
@@ -38,7 +38,7 @@ export default function DoctorMeetingRequests({ doctorId }: { doctorId: string }
 
   const acceptRequest = async (requestId: string) => {
     try {
-      const res = await fetch(`http://localhost:8000/meeting/accept/${requestId}`, {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:8000"}/meeting/accept/${requestId}`, {
         method: "POST"
       });
       if (res.ok) {
@@ -54,7 +54,7 @@ export default function DoctorMeetingRequests({ doctorId }: { doctorId: string }
 
   const declineRequest = async (requestId: string) => {
     try {
-      await fetch(`http://localhost:8000/meeting/decline/${requestId}`, {
+      await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:8000"}/meeting/decline/${requestId}`, {
         method: "POST"
       });
       setRequests(prev => prev.filter(r => r.id !== requestId));
