@@ -14,18 +14,18 @@ export const Input: React.FC<InputProps> = ({
   return (
     <div className="w-full space-y-2">
       {label && (
-        <label className="text-[10px] font-black uppercase tracking-[0.2em] text-medical-textSecondary mb-1 block pl-1">
+        <label className="text-xs font-semibold text-slate-500 mb-2 block pl-1">
           {label}
         </label>
       )}
       <input
         className={`
-          w-full bg-white border border-medical-border rounded-xl px-4 py-3.5 
-          text-sm font-bold text-medical-textPrimary 
-          placeholder:text-medical-textSecondary/40 
-          focus:ring-4 focus:ring-primary-500/10 focus:border-primary-500 
+          w-full bg-slate-50 border border-slate-100 rounded-2xl px-5 py-4
+          text-sm font-medium text-slate-700 
+          placeholder:text-slate-400 
+          focus:bg-white focus:ring-4 focus:ring-primary-400/10 focus:border-primary-400 
           outline-none transition-all duration-300
-          ${error ? "border-emergency focus:ring-emergency/10 focus:border-emergency" : ""}
+          ${error ? "border-rose-400 focus:ring-rose-400/10 focus:border-rose-400" : ""}
           ${className}
         `}
         {...props}

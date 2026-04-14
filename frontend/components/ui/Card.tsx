@@ -29,8 +29,8 @@ export function Card({
   return (
     <div
       className={cn(
-        "bg-white border border-medical-border rounded-2xl shadow-medical transition-all duration-300 overflow-hidden",
-        hoverable && "hover:shadow-medical-hover hover:-translate-y-1",
+        "bg-white border border-slate-100 rounded-[2rem] shadow-premium transition-all duration-500 ease-out overflow-hidden relative group",
+        hoverable && "hover:shadow-premium-hover hover:-translate-y-2",
         accentStyles[accent],
         className
       )}

@@ -8,25 +8,25 @@ module.exports = {
     extend: {
       colors: {
         primary: {
-          50: '#f0fdf4',
-          100: '#dcfce7',
-          200: '#bbf7d0',
-          300: '#86efac',
-          400: '#4ade80',
-          500: '#22c55e', // Main Soft Green
-          600: '#16a34a',
-          700: '#15803d',
-          800: '#166534',
-          900: '#14532d',
+          50: '#f0f9ff',
+          100: '#e0f2fe',
+          200: '#bae6fd',
+          300: '#7dd3fc',
+          400: '#4da6ff', // Requested Light Blue
+          500: '#3b82f6', 
+          600: '#2563eb',
+          700: '#1d4ed8',
+          800: '#1e40af',
+          900: '#1e3a8a',
         },
         medical: {
-          success: '#22c55e',
-          green: '#22c55e',
-          bg: '#f8fafc',
+          success: '#10b981',
+          green: '#10b981',
+          bg: '#fcfdfe',
           card: '#ffffff',
-          textPrimary: '#0f172a',
+          textPrimary: '#1e293b',
           textSecondary: '#64748b',
-          border: '#e2e8f0',
+          border: '#f1f5f9',
           warning: '#f59e0b',
           error: '#ef4444',
           emergency: '#dc2626',
@@ -39,8 +39,10 @@ module.exports = {
         '4xl': '2rem',
       },
       boxShadow: {
-        'medical': '0 4px 6px -1px rgba(0, 0, 0, 0.03), 0 2px 4px -2px rgba(0, 0, 0, 0.03)',
-        'medical-hover': '0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -4px rgba(0, 0, 0, 0.05)',
+        'premium': '0 10px 15px -3px rgba(0, 0, 0, 0.04), 0 4px 6px -4px rgba(0, 0, 0, 0.04)',
+        'premium-hover': '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1)',
+        'medical': '0 2px 15px -3px rgba(0, 0, 0, 0.07), 0 4px 6px -2px rgba(0, 0, 0, 0.05)',
+        'medical-hover': '0 10px 25px -3px rgba(0, 0, 0, 0.1), 0 4px 10px -2px rgba(0, 0, 0, 0.1)',
       },
       keyframes: {
         'pulse-soft': {
